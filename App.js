@@ -19,7 +19,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 console.disableYellowBox = true;
 const Stack = createStackNavigator();
 
-const appId = '7384E970-1516-4C9D-941E-C0628FFA3724';
+const appId = 'YOUR_APP_ID';
 const sendbird = new SendBird({ appId });
 sendbird.setErrorFirstCallback(true);
 
