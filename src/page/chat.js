@@ -177,7 +177,16 @@ const Chat = props => {
     ]);
   };
   const refresh = () => {
-    channel.markAsRead();
+    //channel.markAsRead();
+    if (channel.isPublic) {
+      channel.join((err, res) => {
+        if (err) {
+          console.log('Unable to join channel', err);
+        } else {
+          console.log('Joined channel ok');
+        }
+      });
+    }
     setQuery(channel.createPreviousMessageListQuery());
     dispatch({ type: 'refresh' });
   };
@@ -204,6 +213,7 @@ const Chat = props => {
         if (!err) {
           dispatch({ type: 'send-message', payload: { message } });
         } else {
+          console.log('ERROR ERROR 1', err);
           setTimeout(() => {
             dispatch({ type: 'error', payload: { error: 'Failed to send a message.' } });
             dispatch({ type: 'delete-message', payload: { reqId: pendingMessage.reqId } });
@@ -250,6 +260,7 @@ const Chat = props => {
         if (!err) {
           dispatch({ type: 'send-message', payload: { message } });
         } else {
+          console.log('ERROR ERROR2', err);
           setTimeout(() => {
             dispatch({ type: 'error', payload: { error: 'Failed to send a message.' } });
           }, 500);

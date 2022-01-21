@@ -131,7 +131,15 @@ const Channels = props => {
     });
   };
   const refresh = () => {
-    setQuery(sendbird.GroupChannel.createMyGroupChannelListQuery());
+    let listQuery = sendbird.GroupChannel.createPublicGroupChannelListQuery();
+    listQuery.includeEmpty = true;
+    listQuery.membershipFilter = 'all';
+
+    listQuery.channelNameContainsFilter = 'Test';
+    setQuery(listQuery);
+
+    //setQuery(sendbird.GroupChannel.createPublicGroupChannelListQuery());
+    //setQuery(sendbird.OpenChannel.createOpenChannelListQuery());
     dispatch({ type: 'refresh' });
   };
   const next = () => {
